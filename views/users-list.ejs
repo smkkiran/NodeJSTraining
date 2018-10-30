@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+    <style>
+            .button {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+            .tabButton {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white;
+                padding: 5px 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 13px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+            
+            
+            .button2 {background-color: #008CBA;} /* Blue */
+            .button3 {background-color: #f44336;} /* Red */ 
+            .button4 {background-color: #e7e7e7; color: black;} /* Gray */ 
+            .button5 {background-color: #555555;} /* Black */
+            </style>
+    <script>
+      function onHome(){
+        location="/home";
+      }
+      function onAbtUs(){
+        location="/about-us";
+      }
+      function onUserList(){
+        location="api/userslist";
+      }
+      function onLogout(){
+        location="/login";
+      }
+      function doAddUser(){
+          location="/users/adduser";
+      }
+      function doDelete(id){
+          debugger;
+        $.post("http://localhost:3000/api/deleteUser",{id:id},function(data){  
+                if(data){      
+                  location = "http://localhost:3000/api/userslist";
+                }else{
+                  alert("invalid login...!");
+                }
+            });
+      }
+      </script>
+  </head>
+  <body>
+    <h2><%= title%></h2>
+    <h3> <%= page%> </h3>
+    <button class = "button " onclick="onHome()">Home</button>|
+    <button class = "button button2" onclick="onAbtUs()">About Us</button>|
+    <button class = "button button3" onclick="onUserList()">User List</button>|
+    <button class = "button button4" onclick="onLogout()">Logout</button>
+    <hr>
+    <br><br>
+    <table border="1" cellpadding="7" cellspacing="7">
+            <tr>
+                <th width="40px">No</th>
+                <th width="40px">Id</th>
+                <th width="180px">Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+                           
+            <% if(data.length){                                 
+             for(var i = 0;i < data.length;i++) { %>       
+            <tr>
+                <td><%=(i+1)%></td>
+                <td><%=data[i].id%></td>
+                <td><%=data[i].name%></td>           
+                <td><button class="tabButton" style="background-color: #008CBA" onclick="doEdit(<%=data[i].id%>);" >Edit</button></td>
+                <td><button class="tabButton" style = "background-color: #f44336" onclick="doDelete(<%=data[i].id%>);">Delete</button></td>
+            </tr>
+        <% }
+        
+         }else{ %>
+             <tr>
+                <td colspan="7">No users</td>
+             </tr>
+        <% } %> 
+        </table>
+        <button class = "button button5" style="margin-left: 350px;" onclick="doAddUser()">Add User</button>
+  </body>
+</html>

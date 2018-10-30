@@ -1,0 +1,32 @@
+<html>
+<head>
+<title><%= title %></title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+<script>
+$(document).ready(function(){
+    $("#submit").click(function(){
+        var email=$("#email").val();
+        var pass=$("#password").val();
+        /*
+        * Perform some validation here.
+        */
+        $.post("http://localhost:3000/api/login",{username:email,password:pass},function(data){        
+            if(data==='success')           
+            {
+                //alert("login success");
+                location="/home";   
+            }else{
+                alert("login fail");
+            }
+        });
+    });
+});
+</script>
+</head>
+<body>
+    <H1><%= title %></H1>
+    <input type="text" size="40" placeholder="Username" id="email" value="admin"    ><br /><br />
+    <input type="password" size="40" placeholder="Password" id="password" value="admin"><br /><br />
+    <button type="button" id="submit" style="background:blue;color:white;">Submit</button
+</body>
+</html>

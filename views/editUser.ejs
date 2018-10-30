@@ -1,0 +1,71 @@
+<html>
+<head>
+<title><%= title %></title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+<script>
+	function doLogout(){
+		 location="/login";
+	}
+	function doHome(){
+		 location="/home";
+	}
+	function doUserList(){
+		 location="/api/userlist";
+	}
+	function doAboutus(){
+		 location="/aboutus";
+	}
+	function cancelAdd(){
+		 location="/api/userlist";
+	}
+	function updateUser(id){
+        var email=$("#email").val();
+        var name=$("#name").val();
+        var address=$("#address").val();
+        var phone=$("#phone").val();
+
+        $.post("/api/updateUser",{name:name,address:address,email:email,phone:phone, id:id},function(data){        
+            if(data==='success')           
+            {
+                //alert("login success");
+                location="/api/userlist";   
+            }
+        });
+	}
+	
+
+</script>
+</head>
+<body>
+    <H2><%= title %></H2>
+    <H3><%= page %></H3>
+    <button type="" onclick="doHome()" style="background:#FF9900;color:white;">Home</button> | 
+    <button type="" onclick="doUserList()" style="background:#FF9900;color:white;">Users</button> | 
+    <button type="" onclick="doAboutus()" style="background:#FF9900;color:white;">About</button> | 
+    <button type="" onclick="doLogout()" style="background:red;color:white;">Logout</button>
+    <hr>
+            <div class="page-data">
+                <table cellpadding="11">
+                <tr>
+                    <td class="label">Name</td><td>: <input id="name" type="text" name="name" required value="<%= data.name %>"> </td>
+                 </tr>
+                 <tr>
+                    <td class="label" valign="top">Address</td><td valign="top">: <textarea id="address" name="address" required cols="30" rows="5" value="<%= data.address %>"></textarea></td>
+                </tr>
+                <tr>
+                    <td class="label">Email</td><td>: <input id="email" type="text" name="email" required value="<%= data.email %>"></td>
+                 </tr>
+                  <tr>
+                    <td class="label">Phone</td><td>: <input id="phone" type="text" name="phone" required value="<%= data.phone %>"></td>
+                 </tr>
+                 <tr>
+                    <td class="label"></td>
+                    <td>
+                        &nbsp; <input type="button" value="Save User" name="cancel" style="background:#6599FF;color:white;" onClick="updateUser('<%= data.id %>')">
+                       <input type="button" name="cancel" value="Cancel" style="background:red;color:white;" onClick="cancelAdd()">
+                    </td>
+                 </tr>
+                </table>
+        </div>
+</body>
+</html>

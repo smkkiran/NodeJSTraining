@@ -1,0 +1,29 @@
+<html>
+<head>
+<title><%= title %></title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+<script>
+	function doLogout(){
+		 location="/login";
+	}
+	function doHome(){
+		 location="/home";
+	}
+	function doUserList(){
+		 location="/api/userlist";
+	}
+	function doAboutus(){
+		 location="/aboutus";
+	}
+</script>
+</head>
+<body>
+    <H2><%= title %></H2>
+    <H3><%= page %></H3>
+    <button type="" onclick="doHome()" style="background:#FF9900;color:white;">Home</button> | 
+    <button type="" onclick="doUserList()" style="background:#FF9900;color:white;">Users</button> | 
+    <button type="" onclick="doAboutus()" style="background:#FF9900;color:white;">About</button> | 
+    <button type="" onclick="doLogout()" style="background:red;color:white;">Logout</button>
+    <hr>
+</body>
+</html>
